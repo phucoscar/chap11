@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from opinion import views 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('create-comment/', views.create_comment),
+    path('get-comment', views.getAllCommentByProductId)
 ]

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'opinion',
 ]
 
 MIDDLEWARE = [
@@ -75,10 +76,12 @@ WSGI_APPLICATION = 'user_opinion.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.djongo',
+        'ENGINE': 'djongo',
         'NAME': 'user_opinion',
-        'HOST': '127.0.0.1',
-        "PORT": '27017'
+        'USER': 'test_user',
+        'PASSWORD': 'test123',
+        'HOST': 'localhost',
+        "PORT": 27017
     }
 }
 

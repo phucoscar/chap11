@@ -18,5 +18,6 @@ from django.urls import path
 from product_model import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('getproduct/', views.get_product_data)
+    path('getproduct/', views.get_product_data),
+    path('get-one-product/', views.get_product_by_Id)
 ]

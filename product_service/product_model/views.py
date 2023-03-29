@@ -24,3 +24,24 @@ def get_product_data(request):
         resp['status_code'] = '400'
         resp['message'] = 'Data is not available.'
     return HttpResponse(json.dumps(resp), content_type = 'application/json')
+
+@csrf_exempt
+def get_product_by_Id(request):
+    data = []
+    resp = {}
+    # This will fetch the data from the database.
+    productId = json.loads(request.body)
+    prodata = product_details.objects.all().filter(product_id=productId['ProductId'])
+
+    for tbl_value in prodata.values():
+        data.append(tbl_value)
+        # If data is available then it returns the data.
+    if data:
+        resp['status'] = 'Success'
+        resp['status_code'] = '200'
+        resp['data'] = data[0]
+    else:
+        resp['status'] = 'Failed'
+        resp['status_code'] = '400'
+        resp['message'] = 'Data is not available.'
+    return HttpResponse(json.dumps(resp), content_type = 'application/json')
