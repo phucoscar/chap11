@@ -1,4 +1,4 @@
-from django.db import models
+from djongo import models
 
 class Opinion(models.Model):
     fname = models.CharField(max_length=100),
