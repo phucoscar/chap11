@@ -23,20 +23,9 @@ def updateProductImage(request):
         with open(image_path, 'wb+') as f:
             for chunk in file.chunks():
                 f.write(chunk)
-        
-        # get product info
-        url = 'http://127.0.0.1:3001/get-one-product/'
-        d2 = {}
-        d2["ProductId"] = product_id
-        data = json.dumps(d2)
-        headers = {'Content-Type': 'application/json'}
-        response =  requests.post(url, data=data, headers=headers)
-        val2 = json.loads(response.content.decode('utf-8'))
-        val2 = val2['data']
 
         image = Image()
         image.product_id = product_id
-        image.product_name = val2['product_name']
         image.path = image_path
         image.save()
         return JsonResponse({

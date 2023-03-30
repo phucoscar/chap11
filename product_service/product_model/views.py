@@ -5,6 +5,7 @@ from django.shortcuts import render
 import json
 from django.views.decorators.csrf import csrf_exempt
 from product_model.models import product_details
+import requests
 
 @csrf_exempt
 def get_product_data(request):
@@ -36,6 +37,7 @@ def get_product_by_Id(request):
     for tbl_value in prodata.values():
         data.append(tbl_value)
         # If data is available then it returns the data.
+
     if data:
         resp['status'] = 'Success'
         resp['status_code'] = '200'
