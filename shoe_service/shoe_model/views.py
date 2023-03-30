@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from book_model.models import Book
+from shoe_model.models import Shoe
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 import requests
@@ -7,17 +7,18 @@ import json
 
 
 @csrf_exempt
-def createBook(request):
+def createShoe(request):
     image = request.FILES.get('image')
     id = request.POST.get('id')
     name = request.POST.get('name')
-    author = request.POST.get('author')
+    brand = request.POST.get('brand')
+    size = request.POST.get('size')
     availability = request.POST.get('availability')
     description = request.POST.get('description')
     price = request.POST.get('price')
 
     resp = {}
-    if image and id and name and author and availability and description and price:
+    if image and id and name and brand and size and availability and description and price:
         # call image_service to store image into db
         data = {}
         data["ProductId"] = id
@@ -26,16 +27,17 @@ def createBook(request):
         response =  requests.post(url, data=data, files=files)
         rs = json.loads(response.content.decode('utf-8'))
         print(response)
-        book = Book()
-        book.id = id
-        book.name = name
-        book.author = author
-        book.availability = availability
-        book.description = description
-        book.price = price
-        book.save()
+        shoe = Shoe()
+        shoe.id = id
+        shoe.name = name
+        shoe.brand = brand
+        shoe.size = size
+        shoe.availability = availability
+        shoe.description = description
+        shoe.price = price
+        shoe.save()
         
-        res = book.to_json()
+        res = shoe.to_json()
         res['image_path'] = rs['path']
         resp['status'] = "Success"
         resp['status_code'] = '200'

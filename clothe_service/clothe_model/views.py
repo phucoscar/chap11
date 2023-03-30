@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from book_model.models import Book
+from clothe_model.models import Clothe
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 import requests
@@ -7,17 +7,17 @@ import json
 
 
 @csrf_exempt
-def createBook(request):
+def createClothe(request):
     image = request.FILES.get('image')
     id = request.POST.get('id')
     name = request.POST.get('name')
-    author = request.POST.get('author')
+    brand = request.POST.get('brand')
     availability = request.POST.get('availability')
     description = request.POST.get('description')
     price = request.POST.get('price')
 
     resp = {}
-    if image and id and name and author and availability and description and price:
+    if image and id and name and brand and availability and description and price:
         # call image_service to store image into db
         data = {}
         data["ProductId"] = id
@@ -26,16 +26,16 @@ def createBook(request):
         response =  requests.post(url, data=data, files=files)
         rs = json.loads(response.content.decode('utf-8'))
         print(response)
-        book = Book()
-        book.id = id
-        book.name = name
-        book.author = author
-        book.availability = availability
-        book.description = description
-        book.price = price
-        book.save()
+        clothe = Clothe()
+        clothe.id = id
+        clothe.name = name
+        clothe.brand = brand
+        clothe.availability = availability
+        clothe.description = description
+        clothe.price = price
+        clothe.save()
         
-        res = book.to_json()
+        res = clothe.to_json()
         res['image_path'] = rs['path']
         resp['status'] = "Success"
         resp['status_code'] = '200'
@@ -45,12 +45,3 @@ def createBook(request):
         resp['status_code'] = '400'
         resp['message'] = 'All fields are mandatory'
     return HttpResponse(json.dumps(resp), content_type = 'application/json')
-
-# @csrf_exempt
-# def getBookById(request):
-#     req = json.loads(request.body)
-#     book_id = req['product_id']
-#     bookdata = Book.objects.all().filter(id=book_id)
-#     data = []
-#     for value in bookdata.values():
-#         data.append(value)
