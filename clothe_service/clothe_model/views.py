@@ -45,3 +45,15 @@ def createClothe(request):
         resp['status_code'] = '400'
         resp['message'] = 'All fields are mandatory'
     return HttpResponse(json.dumps(resp), content_type = 'application/json')
+
+@csrf_exempt
+def getClotheById(request):
+    req = json.loads(request.body)
+    clothe_id = req['product_id']
+    bookdata = Clothe.objects.all().filter(id=clothe_id)
+    data = []
+    for value in bookdata.values():
+        data.append(value)
+    resp = {}
+    resp['data'] = data
+    return HttpResponse(json.dumps(resp), content_type = 'application/json')

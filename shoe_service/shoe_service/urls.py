@@ -19,4 +19,5 @@ from shoe_model import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('create-shoe/', views.createShoe),
+    path('get-shoe/', views.getShoeById),
 ]

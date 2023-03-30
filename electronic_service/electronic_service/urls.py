@@ -19,4 +19,5 @@ from electronic_model import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('create-electronic/', views.createElectronic),
+    path('get-electronic/', views.getElectronicById),
 ]

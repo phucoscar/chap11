@@ -38,6 +38,70 @@ def get_product_by_Id(request):
         data.append(tbl_value)
         # If data is available then it returns the data.
 
+    # call book_service
+    if len(data) == 0:
+        url = 'http://localhost:5006/get-book/'
+        d = {}
+        d['product_id'] = productId['ProductId']
+        d=json.dumps(d)
+        headers = {'Content-Type': 'application/json'}
+        response = requests.post(url=url, data=d, headers=headers)
+        res = json.loads(response.content.decode('utf-8'))
+        res = res['data']
+        if res:
+            res = res[0]
+            res['product_id'] = res.pop("id")
+            res['product_name'] = res.pop("name")
+            data.append(res)
+    
+      # call clothe_service
+    if len(data) == 0:
+        url = 'http://localhost:5007/get-clothe/'
+        d = {}
+        d['product_id'] = productId['ProductId']
+        d=json.dumps(d)
+        headers = {'Content-Type': 'application/json'}
+        response = requests.post(url=url, data=d, headers=headers)
+        res = json.loads(response.content.decode('utf-8'))
+        res = res['data']
+        if res:
+            res = res[0]
+            res['product_id'] = res.pop("id")
+            res['product_name'] = res.pop("name")
+            data.append(res)
+    
+      # call electronic_service
+    if len(data) == 0:
+        url = 'http://localhost:5009/get-electronic/'
+        d = {}
+        d['product_id'] = productId['ProductId']
+        d=json.dumps(d)
+        headers = {'Content-Type': 'application/json'}
+        response = requests.post(url=url, data=d, headers=headers)
+        res = json.loads(response.content.decode('utf-8'))
+        res = res['data']
+        if res:
+            res = res[0]
+            res['product_id'] = res.pop("id")
+            res['product_name'] = res.pop("name")
+            data.append(res)
+
+      # call shoe_service
+    if len(data) == 0:
+        url = 'http://localhost:5008/get-shoe/'
+        d = {}
+        d['product_id'] = productId['ProductId']
+        d=json.dumps(d)
+        headers = {'Content-Type': 'application/json'}
+        response = requests.post(url=url, data=d, headers=headers)
+        res = json.loads(response.content.decode('utf-8'))
+        res = res['data']
+        if res:
+            res = res[0]
+            res['product_id'] = res.pop("id")
+            res['product_name'] = res.pop("name")
+            data.append(res)
+
     if data:
         resp['status'] = 'Success'
         resp['status_code'] = '200'

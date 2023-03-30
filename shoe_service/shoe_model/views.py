@@ -48,11 +48,14 @@ def createShoe(request):
         resp['message'] = 'All fields are mandatory'
     return HttpResponse(json.dumps(resp), content_type = 'application/json')
 
-# @csrf_exempt
-# def getBookById(request):
-#     req = json.loads(request.body)
-#     book_id = req['product_id']
-#     bookdata = Book.objects.all().filter(id=book_id)
-#     data = []
-#     for value in bookdata.values():
-#         data.append(value)
+@csrf_exempt
+def getShoeById(request):
+    req = json.loads(request.body)
+    shoe_id = req['product_id']
+    shoedata = Shoe.objects.all().filter(id=shoe_id)
+    data = []
+    for value in shoedata.values():
+        data.append(value)
+    resp = {}
+    resp['data'] = data
+    return HttpResponse(json.dumps(resp), content_type = 'application/json')

@@ -19,4 +19,5 @@ from clothe_model import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('create-clothe/', views.createClothe),
+    path('get-clothe/', views.getClotheById),
 ]

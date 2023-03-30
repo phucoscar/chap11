@@ -19,4 +19,5 @@ from book_model import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('create-book/', views.createBook),
+    path('get-book/', views.getBookById),
 ]

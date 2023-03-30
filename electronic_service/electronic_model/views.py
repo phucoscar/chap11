@@ -45,3 +45,15 @@ def createElectronic(request):
         resp['status_code'] = '400'
         resp['message'] = 'All fields are mandatory'
     return HttpResponse(json.dumps(resp), content_type = 'application/json')
+
+@csrf_exempt
+def getElectronicById(request):
+    req = json.loads(request.body)
+    electronic_id = req['product_id']
+    elecData = Electronic.objects.all().filter(id=electronic_id)
+    data = []
+    for value in elecData.values():
+        data.append(value)
+    resp = {}
+    resp['data'] = data
+    return HttpResponse(json.dumps(resp), content_type = 'application/json')
